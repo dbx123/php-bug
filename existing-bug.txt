@@ -1,0 +1,84 @@
+
+Description	Possible Solution
+Arrays related : Bug #45346: object to array cast indexing error
+Description:
+------------
+object numeric's name properties are cast in string array's index.
+created indexes becomes not accessible.
+
+Reproduce code:
+---------------
+#5.2.7.-DEV on 2007-06-24
+# WANTED => cast object to array and access first element with ...
+Thank you for taking the time to write to us, but this is not
+a bug. Please double-check the documentation available at
+http://www.php.net/manual/ and the instructions on how to report
+a bug at http://bugs.php.net/how-to-report.php
+
+Arrays related : Bug #61655: Unable to access key in array cast from object
+Description:
+------------
+Casting from an object to an array with numeric key leaves the element inaccessible.
+
+
+Given a object with a field whose name is numeric, after a cast to array, there is no means to access the element.
+
+That is  $array['80449 ...
+The fix for this bug has been committed.
+
+Snapshots of the sources are packaged every three hours; this change
+will be in the next snapshot. You can grab the snapshot at
+http://snaps.php.net/.
+
+ For Windows:
+
+http://windows.php.net/snapshots/
+ 
+Thank you for the report, and for helping us make PHP better.
+
+Fixed by: https://wiki.php.net/rfc/convert_numeric_keys_in_object_array_casts
+Class/Object related : Bug #33999: object remains object when cast to int
+Description:
+------------
+When attempting to cast an object to an int, it remains untouched.  No warnings or errors are displayed.  The results are the same for (int), intval(), and settype().  float, bool, string, and array all seem to work correctly.  I  ...
+Fixed in CVS HEAD.
+Arrays related : Bug #54082: Cast array key objects to string
+Description:
+------------
+Per http://www.php.net/manual/en/language.types.array.php, array keys can be integers or strings.
+
+If an object can be converted to a string representation (i.e. it has a __toString() method defined), it should be automatically  ...
+This feature is much awaited, it has wide practical application.
+
+For example in ORM system fields references could be objects:
+
+class FieldReference {
+    protected $name;
+    
+    public function __construct($name) {
+        $this->name = $name;
+    }
+    
+    public function __toString() {
+        return $this->name;
+    }
+}
+
+$ref = new FieldReference('field');
+echo $ref, "\n"; // outputs: field, __toString() method is called
+
+
+$select = [ // works fine but (string) clutters code
+    (string) $ref => 'value'
+];
+var_dump($select); // outputs: array(1) {  ["field"]=> string(5) "value" }
+
+
+$select = [ // looks fine but triggers: Warning: Illegal offset type
+    (string) $ref => 'value'
+];
+var_dump($select);
+*General Issues : Bug #75022: control over object interactions
+Description:
+------------
+I know that this subject is somewhat controversial in the community, nevertheless I want to request this as an language feature; The ability to gain control over object interactions. In this case I mean both casting and operator i ...
